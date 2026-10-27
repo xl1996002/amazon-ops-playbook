@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>亚马逊广告结构示意图</title>
+<!--
+  用法：
+  1. 把下面的【示例数据】整块替换成真实数据（Campaign / 广告组 / 预算 / 竞价策略）。
+  2. 只改文字，不要改 class 名，样式会自动适配。
+  3. 输出为单文件 HTML，浅色主题，可直接浏览器打开或发给同事。
+-->
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#ffffff; --line:#e4e7ec; --line-strong:#d0d5dd;
+    --ink:#101828; --ink-2:#475467; --ink-3:#98a2b3;
+    --sp:#2563eb; --sb:#7c3aed; --sd:#0d9488; --auto:#64748b;
+    --chip:#f2f4f7; --warn:#b54708; --warn-bg:#fffaeb;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:28px 20px 60px; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto}
+
+  /* ---------- 头部 ---------- */
+  header{margin-bottom:22px}
+  .crumbs{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-3);margin-bottom:10px;flex-wrap:wrap}
+  .crumbs b{color:var(--ink-2);font-weight:600}
+  .crumbs i{font-style:normal;color:var(--line-strong)}
+  h1{font-size:22px;margin:0 0 6px;letter-spacing:-.2px}
+  .sub{font-size:13px;color:var(--ink-2);margin:0}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12.5px;color:var(--ink-2)}
+  .chip b{color:var(--ink);font-weight:600}
+
+  /* ---------- 预算条 ---------- */
+  .budget{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:20px}
+  .budget h2{font-size:13px;margin:0 0 12px;color:var(--ink-2);font-weight:600;letter-spacing:.2px}
+  .bar{display:flex;height:26px;border-radius:6px;overflow:hidden;background:var(--chip)}
+  .bar span{display:flex;align-items:center;justify-content:center;font-size:11.5px;color:#fff;font-weight:600;white-space:nowrap}
+  .bar .b-sp{background:var(--sp)}
+  .bar .b-sb{background:var(--sb)}
+  .bar .b-sd{background:var(--sd)}
+  .bar .b-auto{background:var(--auto)}
+  .barlist{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--ink-2)}
+  .barlist em{font-style:normal;display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+  .barlist b{color:var(--ink);font-weight:600}
+
+  /* ---------- 活动卡片 ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:16px}
+  .camp{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .camp-hd{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .camp-hd .nm{font-size:13.5px;font-weight:600;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all;line-height:1.45}
+  .camp-hd .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .tag{font-size:11px;padding:2.5px 8px;border-radius:5px;background:var(--chip);color:var(--ink-2);white-space:nowrap}
+  .tag.sp{background:#eff6ff;color:#1d4ed8}
+  .tag.sb{background:#f5f3ff;color:#6d28d9}
+  .tag.sd{background:#f0fdfa;color:#0f766e}
+  .tag.auto{background:#f1f5f9;color:#475569}
+  .money{text-align:right;white-space:nowrap}
+  .money .v{font-size:17px;font-weight:700;letter-spacing:-.3px}
+  .money .l{font-size:11px;color:var(--ink-3);margin-top:2px}
+
+  .ag{border-top:1px solid var(--line);padding:13px 16px}
+  .ag:first-of-type{border-top:0}
+  .ag .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+  .ag .gname{font-size:12.5px;font-weight:600;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink);word-break:break-all}
+  .ag .bid{font-size:11.5px;color:var(--ink-2);white-space:nowrap}
+  .ag .bid b{color:var(--ink);font-weight:600}
+  .kw{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .kw span{font-size:11.5px;background:var(--chip);border:1px solid #eaecf0;border-radius:5px;padding:3px 8px;color:var(--ink-2);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .neg{margin-top:9px;font-size:11.5px;color:var(--warn);background:var(--warn-bg);border:1px solid #fedf89;border-radius:6px;padding:6px 9px}
+  .neg b{font-weight:600}
+  .adj{margin-top:8px;font-size:11.5px;color:var(--ink-2)}
+  .adj b{color:var(--ink);font-weight:600}
+
+  /* ---------- 页脚说明 ---------- */
+  footer{margin-top:26px;font-size:12px;color:var(--ink-3);line-height:1.8}
+  footer b{color:var(--ink-2);font-weight:600}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="crumbs">
+      <b>账户</b><i>/</i><b>广告组合</b><i>/</i><b>广告活动</b><i>/</i><b>广告组</b><i>/</i><b>关键词·定向</b>
+    </div>
+    <h1>广告结构示意图 · B0XXXXXXXX</h1>
+    <p class="sub">广告组合 MYSHOP-B0XXXXXXXX · 站点 UK · 上架第 30 天 · 结构版本 v1</p>
+    <div class="chips">
+      <span class="chip">日预算合计 <b>£18.00</b></span>
+      <span class="chip">活动数 <b>5</b></span>
+      <span class="chip">广告组数 <b>5</b></span>
+      <span class="chip">目标 ACOS <b>25%</b></span>
+      <span class="chip">对应 ROAS <b>4.0</b></span>
+    </div>
+  </header>
+
+  <!-- ============ 预算分配 ============ -->
+  <section class="budget">
+    <h2>日预算分配</h2>
+    <div class="bar">
+      <span class="b-sp" style="width:28%">SP-MT-KT-EX £5</span>
+      <span class="b-sp" style="width:22%">SP-MT-KT-PH £4</span>
+      <span class="b-auto" style="width:17%">SP-AT £3</span>
+      <span class="b-sp" style="width:17%">SP-MT-PAT-IP £3</span>
+      <span class="b-sb" style="width:16%">SB-PC-NLP-KT £3</span>
+    </div>
+    <div class="barlist">
+      <span><em class="b-sp"></em>商品推广（手动）</span>
+      <span><em class="b-auto"></em>商品推广（自动）</span>
+      <span><em class="b-sb"></em>品牌推广</span>
+      <span><em class="b-sd"></em>展示型推广</span>
+    </div>
+  </section>
+
+  <!-- ============ 活动卡片（示例数据，替换此处） ============ -->
+  <section class="grid">
+
+    <article class="camp">
+      <div class="camp-hd">
+        <div>
+          <div class="nm">MYSHOP-B0XXXXXXXXA-SP-MT-KT-EX-【大词】</div>
+          <div class="meta">
+            <span class="tag sp">SP 手动</span>
+            <span class="tag">动态竞价-提高和降低</span>
+            <span class="tag">主攻位</span>
+          </div>
+        </div>
+        <div class="money"><div class="v">£5.00</div><div class="l">每日预算</div></div>
+      </div>
+      <div class="ag">
+        <div class="top">
+          <div class="gname">MYSHOP-B0XXXXXXXXA-SP-MT-KT-EX-【大词】-【进攻】</div>
+          <div class="bid">基准出价 <b>£0.45</b></div>
+        </div>
+        <div class="kw">
+          <span>measuring cups</span><span>measuring cup set</span>
+        </div>
+        <div class="adj">Match type <b>Exact</b> · TARGETING GROUPS <b>核心词组</b></div>
+        <div class="neg"><b>Negative：</b>free · cheap · used · second hand</div>
+        <div class="adj">Bid adjustments <b>Top of search +30%</b></div>
+      </div>
+    </article>
+
+    <article class="camp">
+      <div class="camp-hd">
+        <div>
+          <div class="nm">MYSHOP-B0XXXXXXXXA-SP-MT-KT-PH-【长尾词】</div>
+          <div class="meta">
+            <span class="tag sp">SP 手动</span>
+            <span class="tag">固定竞价</span>
+            <span class="tag">拓词</span>
+          </div>
+        </div>
+        <div class="money"><div class="v">£4.00</div><div class="l">每日预算</div></div>
+      </div>
+      <div class="ag">
+        <div class="top">
+          <div class="gname">MYSHOP-B0XXXXXXXXA-SP-MT-KT-PH-【长尾词】-【进攻】</div>
+          <div class="bid">基准出价 <b>£0.35</b></div>
+        </div>
+        <div class="kw">
+          <span>stainless steel measuring cups</span><span>measuring cups for baking</span>
+        </div>
+        <div class="adj">Match type <b>Phrase</b> · TARGETING GROUPS <b>长尾词组</b></div>
+        <div class="neg"><b>Negative：</b>wooden · plastic · toy</div>
+        <div class="adj">Bid adjustments <b>Top of search +10%</b></div>
+      </div>
+    </article>
+
+    <article class="camp">
+      <div class="camp-hd">
+        <div>
+          <div class="nm">MYSHOP-B0XXXXXXXXA-SP-AT</div>
+          <div class="meta">
+            <span class="tag auto">SP 自动</span>
+            <span class="tag">动态竞价-只降低</span>
+            <span class="tag">探针</span>
+          </div>
+        </div>
+        <div class="money"><div class="v">£3.00</div><div class="l">每日预算</div></div>
+      </div>
+      <div class="ag">
+        <div class="top">
+          <div class="gname">MYSHOP-B0XXXXXXXXA-SP-AT-【紧密】</div>
+          <div class="bid">基准出价 <b>£0.30</b></div>
+        </div>
+        <div class="kw">
+          <span>紧密匹配</span><span>宽泛匹配</span><span>同类商品</span><span>关联商品</span>
+        </div>
+        <div class="adj">TARGETING GROUPS <b>四个投放组全开</b></div>
+        <div class="neg"><b>Negative：</b>diy · replacement part · printable</div>
+        <div class="adj">Bid adjustments <b>无</b> · 跑 7-14 天看搜索词</div>
+      </div>
+    </article>
+
+    <article class="camp">
+      <div class="camp-hd">
+        <div>
+          <div class="nm">MYSHOP-B0XXXXXXXXA-SP-MT-PAT-IP-【竞品】</div>
+          <div class="meta">
+            <span class="tag sp">SP 手动</span>
+            <span class="tag">动态竞价-只降低</span>
+            <span class="tag">竞对截流</span>
+          </div>
+        </div>
+        <div class="money"><div class="v">£3.00</div><div class="l">每日预算</div></div>
+      </div>
+      <div class="ag">
+        <div class="top">
+          <div class="gname">MYSHOP-B0XXXXXXXXA-SP-MT-PAT-IP-【竞品】-【进攻】</div>
+          <div class="bid">基准出价 <b>£0.40</b></div>
+        </div>
+        <div class="kw"><span>B0YYYYYYYY</span><span>B0ZZZZZZZZ</span></div>
+        <div class="adj">Match type <b>ASIN 定向</b> · TARGETING GROUPS <b>竞品 ASIN 组</b></div>
+        <div class="neg"><b>Negative product：</b>无（单独活动便于核算）</div>
+        <div class="adj">Bid adjustments <b>Product pages +20%</b></div>
+      </div>
+    </article>
+
+    <article class="camp">
+      <div class="camp-hd">
+        <div>
+          <div class="nm">MYSHOP-B0XXXXXXXXA-SB-PC-NLP-KT</div>
+          <div class="meta">
+            <span class="tag sb">SB / SBV</span>
+            <span class="tag">固定竞价</span>
+            <span class="tag">品牌词</span>
+          </div>
+        </div>
+        <div class="money"><div class="v">待补充</div><div class="l">每日预算</div></div>
+      </div>
+      <div class="ag">
+        <div class="top">
+          <div class="gname">MYSHOP-B0XXXXXXXXA-SB-PC-NLP-KT-【品牌词】</div>
+          <div class="bid">基准出价 <b>待补充</b></div>
+        </div>
+        <div class="kw"><span>品牌词</span><span>品牌词 + 品类词</span></div>
+        <div class="adj">Match type <b>Exact / Phrase</b> · TARGETING GROUPS <b>品牌防御</b></div>
+        <div class="neg"><b>Negative：</b>待补充</div>
+        <div class="adj">Bid adjustments <b>待补充</b> · 需完成品牌注册</div>
+      </div>
+    </article>
+
+  </section>
+
+  <footer>
+    <div class="legend">
+      <span><b>SP</b> 商品推广</span><span><b>SB / SBV</b> 品牌推广 / 品牌视频</span><span><b>SD</b> 展示型推广</span>
+    </div>
+    <div>核对要点：命名按 references/02-ads-playbook.md §2（店铺代号-ASIN-投放形式-匹配-序号）；一个活动一般一个广告组；每个广告组 5-10 个同类词；评价数不足时先只做 SP；缺失信息写「待补充」，不留空。</div>
+    <div>图表仅表达结构与配比，具体数值以 <b>广告组配置表</b> 为准。</div>
+  </footer>
+
+</div>
+</body>
+</html>
