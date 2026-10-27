@@ -22,7 +22,7 @@ agent_created: true
 
 1. **不编造。** 尺寸、材质、数量、颜色、承重、防水等级、认证、兼容范围、包装配件、性能参数，只能来自产品图、产品资料或抓取到的实测数据。缺就标 `待确认` 并列出要问的问题，不允许「合理推测」。
 2. **不写品牌名。** Listing 全文（Title / Highlights / 五点 / 描述 / Search Terms）不含自有品牌名与他方品牌名，也不含 ASIN、竞品品牌、未经授权的兼容性表达。Brand 字段由各店铺后台单独填。
-3. **硬指标先过机器再交付。** Title ≤ 75 字符、Item Highlights ≤ 125 字符、Search Terms ≤ 250 字节、五点 5 条、同一关键词不跳模块重复主攻。**必须**跑 `scripts/check_listing.py` 拿到 PASS，不允许用肉眼数。
+3. **硬指标先过机器再交付。** Title ≤ 75 字符、Item Highlights ≤ 125 字符、Search Terms ≤ 250 字节、五点 5 条、同一关键词不跨模块重复主攻。**必须**跑 `scripts/check_listing.py` 拿到 PASS，不允许用肉眼数。
 
 ## 默认模式：一个链接跑完全链路
 
