@@ -1,0 +1,5 @@
+﻿Portfolio,Campaign name,Ad group name,每日预算,广告活动类型,广告投放定位,竞价策略,投放关键词,Match type,TARGETING GROUPS,Negative keyword / Negative product,Bid adjustments,备注
+MYSHOP-B0XXXXXXXX,MYSHOP-B0XXXXXXXX-SP-AT-01,MYSHOP-B0XXXXXXXX-SP-AT-01-【紧密】,£3.00,SP 自动,自动,动态竞价-只降低,—,—,紧密匹配 / 宽泛匹配 / 同类商品 / 关联商品,"cheap, used, replacement, spare parts",—,探词用 跑 14 天看搜索词
+MYSHOP-B0XXXXXXXX,MYSHOP-B0XXXXXXXX-SP-EX-01,MYSHOP-B0XXXXXXXX-SP-EX-01-【大词】,£7.00,SP 手动,手动,动态竞价-提高和降低,"核心词1｜核心词2",Exact,大词组（按搜索量或 ABA 排名分组）,free / cheap / used,Top of search +30%,主攻位 单独活动便于控预算
+MYSHOP-B0XXXXXXXX,MYSHOP-B0XXXXXXXX-SP-PH-01,MYSHOP-B0XXXXXXXX-SP-PH-01-【长尾】,£5.00,SP 手动,手动,固定竞价,"长尾词1｜长尾词2｜长尾词3",Phrase,长尾词组,与产品无关的错品类词,Top of search +10%,拓词 与精准分开
+MYSHOP-B0XXXXXXXX,MYSHOP-B0XXXXXXXX-SP-ASIN-01,MYSHOP-B0XXXXXXXX-SP-ASIN-01-【竞品】,£3.00,SP 手动,手动,动态竞价-只降低,—,ASIN 定向,"B0YYYYYYYY｜B0ZZZZZZZZ",竞品 ASIN 不否定,Product pages +20%,竞对截流 单独核算 ACOS
