@@ -84,7 +84,7 @@ python3 scripts/check_listing.py my-listing.json --json-report report.json
 
 **关键词**
 - 七分类覆盖率（核心词 100%、长尾词 ≥80%）
-- 跳模块冲突：Title ↔ Item Highlights、Item Highlights ↔ Search Terms、五点重复主攻
+- 跨模块冲突：Title ↔ Item Highlights、Item Highlights ↔ Search Terms、五点重复主攻
 - 「分配表说放在 Title，正文里却找不到」这类标注与内容不符
 - 长尾词里包含核心词时**不会**误报为重复（这是有意设计的）
 
